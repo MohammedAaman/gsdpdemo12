@@ -25,7 +25,7 @@ view()
 #create a loop and iterate over all files name
 dir(path="gsdp",
     pattern = "NAD")-> state_files
-
+tempdf <- tibble()
 
 for (i  in state_files) {
   print(paste0("file name",i))
@@ -45,7 +45,11 @@ st_df8 %>%
   select(-1) %>% 
   mutate(state = st_name)-> st_df9
 print(st_df9)
-bind_rows(tempdf,st_df9)->
+bind_rows(tempdf,st_df9) -> tempdf
 }
+
+tempdf -> final_statewise_gsdp
+final_statewise_gsdp %>% 
+  write.csv("final_statewise_gsdp.csv")
   
   
